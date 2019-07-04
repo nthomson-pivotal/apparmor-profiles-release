@@ -1,0 +1,83 @@
+# To use , as root run :
+# ln /bin/bash /usr/local/bin/jailbash
+# aa-enforce /etc/apparmor.d/usr.local.bin.jailbash
+
+
+#include <tunables/global>
+/usr/local/bin/jailbash {
+  #include <abstractions/base>
+  #include <abstractions/bash>
+  #include <abstractions/consoles>
+  #include <abstractions/dbus>
+  #include <abstractions/gnome>
+  #include <abstractions/nameservice>
+  #include <abstractions/python>
+  #include <abstractions/ubuntu-browsers>
+  #include <abstractions/wutmp>
+  #include <abstractions/X>
+
+  /dev/ptmx rw,
+
+  / r,
+  /bin/ r,
+  /bin/* ixr,
+  /usr/bin/ r,
+  /usr/bin/* ixr,
+#  /usr/bin/chromium-browser Pxr,
+  /usr/bin/empathy Pxr,
+  /usr/bin/evince Pxr,
+  /usr/bin/exo-open ixr,
+  /usr/bin/firefox-3.5 Pxr,
+  /usr/lib/firefox-3.5.4/firefox.sh Pxr,
+  /usr/bin/icecat Pxr,
+  /usr/bin/irssi Pxr,
+  /usr/bin/streamtuner Pxr,
+  /usr/bin/xchat Pxr,
+  /etc/nsswitch.conf r,
+  /etc/mtab r,
+  /etc/passwd mr,
+  /etc/purple/ r,
+  /etc/purple/** r,
+  /etc/resolv.conf r,
+  /etc/group mr,
+  /etc/xdg/** r,
+  /home/guest/ r,
+  /home/guest/** rwix,
+  /lib/terminfo/** r,
+  /tmp/** rw,
+  /usr/lib/ r,
+  /usr/lib*/ r,
+  /usr/lib/* mixr,
+  /usr/lib*/* mixr,
+  /usr/lib/libexo* mixrl,
+  /usr/lib/libexo*/* mixrl,
+  /usr/lib*/* mixr,
+  /usr/local/bin/jailbash mr,
+  /usr/share/** lr,
+  /usr/share/ r,
+  /usr/local/share/ r,
+  /usr/local/share/** lr,
+  /usr/share/command-not-found/programs.d/* kr,
+
+  /media/ rw,
+  /media/** rw,
+
+  @{PROC}/ r,
+  @{PROC}/*/cmdline r,
+  @{PROC}/*/stat r,
+  @{PROC}/*/status r,
+  @{PROC}/filesystems r,
+  @{PROC}/*/mounts r,
+  @{PROC}/*/maps r,
+  @{PROC}/*/fd/ r,
+  @{PROC}/version r,
+
+
+  /home/guest/ rw,
+  /home/guest/** rwmkl,
+  /home/guest/.cache/** rwk,
+  /home/guest/.config/ rw,
+  /home/guest/.config/** rwk,
+  /home/guest/.profile rw,
+
+}

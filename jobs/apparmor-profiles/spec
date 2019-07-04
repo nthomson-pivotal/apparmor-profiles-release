@@ -1,0 +1,17 @@
+---
+name: apparmor-profiles
+
+templates:
+  pre-start.sh.erb: bin/pre-start
+  usr.local.bin.jailbash: config/usr.local.bin.jailbash
+
+properties:
+  enforce:
+    description: |
+      If set to true, profiles are added with aa-enforce, otherwise use aa-complain
+    default: false
+  profiles:
+    description: |
+      AppArmor profiles to activate
+    default:
+    - usr.local.bin.jailbash

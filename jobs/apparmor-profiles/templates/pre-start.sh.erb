@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -ex
+
+CONFIG_DIR=/var/vcap/jobs/apparmor-profiles/config
+
+# TODO: Remove these
+if [ ! -f /usr/local/bin/jailbash ]; then
+  ln /bin/bash /usr/local/bin/jailbash
+fi
+# END
+
+<% if p('enforce') %>
+AA_BIN=aa-enforce
+<% else %>
+AA_BIN=aa-complain
+<% end %>
+
+<% p("profiles").each do |profile| %>
+# Profile: <%= profile %>
+cp $CONFIG_DIR/<%= profile %> /etc/apparmor.d/
+$AA_BIN <%= profile %>
+<% end %>

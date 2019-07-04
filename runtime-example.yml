@@ -1,0 +1,12 @@
+---
+addons:
+- name: apparmor-profiles
+  include:
+    stemcell:
+    - os: ubuntu-xenial
+  jobs:
+  - name: apparmor-profiles
+    release: apparmor-profiles
+releases:
+- name: apparmor-profiles
+  version: 0+dev.5
